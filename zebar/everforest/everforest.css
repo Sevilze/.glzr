@@ -1,0 +1,350 @@
+/**
+ * Import the Nerdfonts icon font.
+ * Ref https://www.nerdfonts.com/cheat-sheet for a cheatsheet of available Nerdfonts icons.
+ */
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+
+/* Everforest Color Palette */
+:root {
+  --bg-dim: #232A2E;
+  --black: #000000;
+  --white: #FFFFFF;
+  --bg0: #2D353B;
+  --bg1: #343F44;
+  --bg2: #3D484D;
+  --bg3: #475258;
+  --bg4: #4F585E;
+  --bg5: #56635f;
+  --bg-visual: #543A48;
+  --bg-red: #514045;
+  --bg-green: #425047;
+  --bg-blue: #3A515D;
+  --bg-yellow: #4D4C43;
+  --fg: #D3C6AA;
+  --red: #E67E80;
+  --orange: #E69875;
+  --yellow: #DBBC7F;
+  --green: #A7C080;
+  --aqua: #83C092;
+  --blue: #7FBBB3;
+  --purple: #D699B6;
+  --grey0: #7A8478;
+  --grey1: #859289;
+  --grey2: #9DA9A0;
+}
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "CaskaydiaCove Nerd Font", monospace;
+  font-weight: bold;
+  min-height: 0;
+  font-size: 13px;
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+}
+
+body {
+  color: var(--fg);
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  background-color: var(--bg-green);
+  border-radius: 10px;
+  user-select: none;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr;
+  align-items: center;
+  height: 100%;
+  padding: 5px 8px;
+  background-color: var(--bg-green);
+  border-radius: 10px;
+}
+
+.left,
+.center,
+.right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.center {
+  justify-self: center;
+  font-size: 14px;
+}
+
+.right {
+  justify-content: end;
+}
+
+/* Custom Arch Icon */
+.custom-arch {
+  margin-right: 5px;
+}
+
+.btn-arch {
+  background-color: var(--bg0);
+  color: var(--red);
+  border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-arch:hover {
+  background-color: var(--bg1);
+  color: var(--orange);
+}
+
+/* Workspaces */
+.workspaces {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.workspace {
+  background-color: var(--orange);
+  color: var(--black);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: all 0.3s ease;
+  min-width: 30px;
+}
+
+.workspace.displayed {
+  background-color: var(--grey0);
+  color: var(--black);
+}
+
+.workspace.focused {
+  background-color: var(--green);
+  color: var(--bg0);
+}
+
+.workspace:hover {
+  background-color: var(--purple);
+  color: var(--black);
+}
+
+/* Tray */
+.tray-section {
+  background-color: var(--bg0);
+  color: var(--fg);
+  padding: 4px 8px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+/* Clock */
+.clock-section {
+  background-color: var(--aqua);
+  color: var(--bg-yellow);
+  border-radius: 5px;
+  padding: 4px 8px;
+  margin: 0 5px;
+}
+
+.btn-clock {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.clock-text {
+  font-weight: bold;
+}
+
+/* Idle Inhibitor */
+.idle-inhibitor {
+  background-color: var(--blue);
+  color: var(--black);
+  padding: 4px 8px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+/* CPU Section */
+.cpu-section {
+  background-color: var(--yellow);
+  color: var(--bg-yellow);
+  padding: 4px 8px;
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Memory Section */
+.memory-section {
+  background-color: var(--yellow);
+  color: var(--bg-yellow);
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-memory {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Temperature Section */
+.temperature-section {
+  background-color: var(--green);
+  color: var(--bg-yellow);
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.temp-critical {
+  color: var(--red) !important;
+}
+
+/* Disk Section */
+.disk-section {
+  background-color: var(--green);
+  color: var(--bg-yellow);
+  padding: 4px 8px;
+  border-radius: 0 5px 5px 0;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Backlight Section */
+.backlight-section {
+  background-color: var(--red);
+  color: var(--black);
+  padding: 4px 8px;
+  border-radius: 5px 0 0 5px;
+  margin-left: 5px;
+}
+
+/* Battery Section */
+.battery-section {
+  background-color: var(--aqua);
+  color: var(--bg-yellow);
+  padding: 4px 8px;
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+
+.charging-icon {
+  position: absolute;
+  font-size: 8px;
+  left: 2px;
+  top: 2px;
+  color: var(--red);
+}
+
+.battery-critical {
+  color: var(--red) !important;
+}
+
+.battery-full {
+  color: var(--green) !important;
+}
+
+.battery-normal {
+  color: var(--fg);
+}
+
+/* Audio Section */
+.audio-section {
+  background-color: var(--blue);
+  color: var(--bg-yellow);
+  padding: 4px 8px;
+  border-radius: 0 5px 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-audio {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-audio:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.audio-volume {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 4px;
+}
+
+/* High usage indicators */
+.high-usage {
+  color: var(--red) !important;
+  animation: flash 0.5s infinite;
+}
+
+@keyframes flash {
+  from { opacity: 1.0; }
+  50% { opacity: 0.5; }
+  to { opacity: 1.0; }
+}
+
+/* Icon styling */
+i {
+  margin-right: 4px;
+}
+
+i:last-child {
+  margin-right: 0;
+}
+
+/* Hover effects for interactive elements */
+button:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .app {
+    font-size: 12px;
+  }
+  
+  .workspace {
+    min-width: 25px;
+    padding: 3px 6px;
+  }
+}
