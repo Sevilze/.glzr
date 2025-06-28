@@ -125,62 +125,7 @@
         return (
           <div className="app">
             <div className="left">
-              {/* Custom Arch Icon */}
-              <div className="custom-arch">
-                <button className="btn-arch" onClick={() => output.glazewm?.runCommand('shell-exec rofi -show drun')}>
-                  <i className="nf nf-linux-archlinux"></i>
-                </button>
-              </div>
-
-              {/* Workspaces */}
-              <div className="workspaces">
-                {output.glazewm && output.glazewm.currentWorkspaces ? (
-                  output.glazewm.currentWorkspaces.map(workspace => (
-                    <button
-                      className={`workspace ${workspace.hasFocus ? 'focused' : ''} ${workspace.isDisplayed ? 'displayed' : ''}`}
-                      onClick={() =>
-                        output.glazewm.runCommand(
-                          `focus --workspace ${workspace.name}`,
-                        )
-                      }
-                      key={workspace.name}
-                    >
-                      {workspace.displayName ?? workspace.name}
-                    </button>
-                  ))
-                ) : (
-                  // Fallback workspaces
-                  ['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(num => (
-                    <button className="workspace" key={num}>
-                      {num}
-                    </button>
-                  ))
-                )}
-              </div>
-
-              {/* Tray */}
-              <div className="tray-section">
-                <i className="nf nf-md-apps"></i>
-              </div>
-            </div>
-
-            <div className="center">
-              {/* Clock */}
-              <div className="clock-section">
-                <button className="btn-clock" onClick={() => {
-                  output.glazewm?.runCommand('shell-exec %userprofile%/.glzr/zebar/script/OpenActionCenter.vbs')
-                }}>
-                  <span className="clock-text">{output.date?.formatted || 'Loading...'}</span>
-                </button>
-              </div>
-
-              {/* Idle Inhibitor */}
-              <div className="idle-inhibitor">
-                <i className="nf nf-md-sleep"></i>
-              </div>
-            </div>
-
-            <div className="right">
+              {/* System Monitoring */}
               {/* CPU */}
               <div className="cpu-section">
                 <i className="nf nf-oct-cpu"></i>
@@ -219,12 +164,25 @@
                   }
                 </span>
               </div>
+            </div>
 
-              {/* Backlight */}
-              <div className="backlight-section">
-                <i className="nf nf-md-brightness_6"></i>
+            <div className="center">
+              {/* Clock */}
+              <div className="clock-section">
+                <button className="btn-clock" onClick={() => {
+                  output.glazewm?.runCommand('shell-exec %userprofile%/.glzr/zebar/script/OpenActionCenter.vbs')
+                }}>
+                  <span className="clock-text">{output.date?.formatted || 'Loading...'}</span>
+                </button>
               </div>
 
+              {/* Idle Inhibitor */}
+              <div className="idle-inhibitor">
+                <i className="nf nf-md-sleep"></i>
+              </div>
+            </div>
+
+            <div className="right">
               {/* Battery */}
               <div className="battery-section">
                 {/* Show icon for whether battery is charging. */}
@@ -240,29 +198,7 @@
                 </span>
               </div>
 
-              {/* Audio */}
-              <div className="audio-section">
-                <button className="btn-audio" onClick={() => {
-                  if (output.audio && output.audio.defaultPlaybackDevice) {
-                    output.audio.setVolume(output.audio.defaultPlaybackDevice.volume - 5);
-                  }
-                }}>
-                  <i className="nf nf-md-volume_minus"></i>
-                </button>
 
-                <div className="audio-volume">
-                  <i className="nf nf-md-volume_high"></i>
-                  <span>{output.audio && output.audio.defaultPlaybackDevice ? Math.round(output.audio.defaultPlaybackDevice.volume) : '--'}</span>
-                </div>
-
-                <button className="btn-audio" onClick={() => {
-                  if (output.audio && output.audio.defaultPlaybackDevice) {
-                    output.audio.setVolume(output.audio.defaultPlaybackDevice.volume + 5);
-                  }
-                }}>
-                  <i className="nf nf-md-volume_plus"></i>
-                </button>
-              </div>
             </div>
           </div>
         );

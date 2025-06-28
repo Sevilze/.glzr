@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Base styles for better consistency across platforms (aka. CSS reset). -->
+    <link rel="stylesheet" type="text/css" href="../normalize.css" />
+
+    <!-- Custom styles. -->
+    <link rel="stylesheet" type="text/css" href="./everforest.css" />
+    <link rel="stylesheet" type="text/css" href="./bottom-bar.css" />
+
+    <!-- Add empty favicon to suppress not found errors. -->
+    <link rel="icon" href="data:;" />
+
+    <!-- Allows React to be run buildless via "text/babel" script below. -->
+    <script
+        src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js"
+        integrity="sha256-aS0B0wnsaDByLfE16h4MDCP1fQFccysd1YWOcV+gbBo="
+        crossorigin="anonymous"
+        ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-type="module">
+      import React, {
+        useState,
+        useEffect,
+      } from 'https://esm.sh/react@18?dev';
+      import { createRoot } from 'https://esm.sh/react-dom@18/client?dev';
+      import * as zebar from 'https://esm.sh/zebar@2';
+
+      const providers = zebar.createProviderGroup({
+        glazewm: { type: 'glazewm' },
+        audio: { type: 'audio' }
+      });
+
+      createRoot(document.getElementById('root')).render(<App />);
+
+      function App() {
+        const [output, setOutput] = useState(providers.outputMap);
+
+        useEffect(() => {
+          providers.onOutput(() => setOutput(providers.outputMap));
+        }, []);
+
+        // Debug logging
+        console.log('Bottom Bar output:', output);
+        if (output.glazewm && output.glazewm.allWindows) {
+          console.log('All windows:', output.glazewm.allWindows);
+          console.log('Current workspaces:', output.glazewm.currentWorkspaces);
+          console.log('All workspaces:', output.glazewm.allWorkspaces);
+        }
+
+        // Get application icon based on process name
+        function getAppIcon(processName) {
+          if (!processName) {
+            console.log('getAppIcon: No processName provided');
+            return null;
+          }
+
+          const iconMap = {
+            'firefox': 'nf-md-firefox',
+            'chrome': 'nf-md-google_chrome',
+            'msedge': 'nf-md-microsoft_edge',
+            'code': 'nf-md-microsoft_visual_studio_code',
+            'notepad': 'nf-md-note_edit',
+            'explorer': 'nf-md-folder',
+            'cmd': 'nf-md-console',
+            'powershell': 'nf-md-powershell',
+            'wezterm-gui': 'nf-md-terminal',
+            'discord': 'nf-md-discord',
+            'spotify': 'nf-md-spotify',
+            'steam': 'nf-md-steam',
+            'vlc': 'nf-md-vlc',
+            'obs64': 'nf-md-video',
+            'photoshop': 'nf-md-image_edit',
+            'winrar': 'nf-md-archive',
+            'calculator': 'nf-md-calculator',
+            'mspaint': 'nf-md-palette',
+            'thunderbird': 'nf-md-email',
+            'teams': 'nf-md-microsoft_teams',
+            'zoom': 'nf-md-video_account',
+            'git': 'nf-dev-git',
+            'wezterm': 'nf-md-terminal',
+            'terminal': 'nf-md-terminal',
+            'devenv': 'nf-md-microsoft_visual_studio',
+            'idea64': 'nf-dev-intellij',
+            'pycharm64': 'nf-dev-python',
+            'sublime_text': 'nf-seti-sublime',
+            'atom': 'nf-dev-atom',
+            'slack': 'nf-md-slack',
+            'telegram': 'nf-md-telegram'
+          };
+
+          const lowerProcessName = processName.toLowerCase();
+          console.log(`getAppIcon: Looking for icon for process "${processName}" (lowercase: "${lowerProcessName}")`);
+
+          for (const [key, icon] of Object.entries(iconMap)) {
+            if (lowerProcessName.includes(key)) {
+              console.log(`getAppIcon: Found match "${key}" -> "${icon}"`);
+              return icon;
+            }
+          }
+
+          console.log(`getAppIcon: No specific icon found for "${processName}", using default`);
+          return 'nf-md-application'; // Default application icon
+        }
+
+        // Get primary application for a workspace
+        function getWorkspaceApp(workspaceName) {
+          if (!output.glazewm || !output.glazewm.allWindows) {
+            console.log('No GlazeWM data or allWindows available');
+            return null;
+          }
+
+          const workspaceWindows = output.glazewm.allWindows.filter(window => {
+            const matches = window.workspaceName === workspaceName &&
+              !window.isMinimized &&
+              window.processName !== 'zebar' &&
+              window.processName; // Ensure processName exists
+
+            if (matches) {
+              console.log(`Found window in workspace ${workspaceName}:`, window.processName, window);
+            }
+            return matches;
+          });
+
+          console.log(`Workspace ${workspaceName} has ${workspaceWindows.length} windows:`, workspaceWindows.map(w => w.processName));
+
+          if (workspaceWindows.length === 0) {
+            console.log(`No windows found for workspace ${workspaceName}`);
+            return null;
+          }
+
+          // Return the focused window if it exists, otherwise the first window
+          const focusedWindow = workspaceWindows.find(w => w.hasFocus);
+          const selectedWindow = focusedWindow || workspaceWindows[0];
+          console.log(`Selected window for workspace ${workspaceName}:`, selectedWindow.processName);
+          return selectedWindow;
+        }
+
+        // Filter workspaces based on current monitor
+        function getWorkspacesForCurrentMonitor() {
+          if (!output.glazewm) return [];
+
+          // Use currentWorkspaces which should contain workspaces for the current monitor
+          const currentWorkspaces = output.glazewm.currentWorkspaces || [];
+          const allWorkspaces = output.glazewm.allWorkspaces || [];
+
+          // If currentWorkspaces is empty, fall back to filtering all workspaces
+          if (currentWorkspaces.length === 0) {
+            // Get all monitors to determine which workspaces belong to which monitor
+            const allMonitors = output.glazewm.allMonitors || [];
+
+            // Find workspaces for each monitor based on GlazeWM config
+            // Monitor 0 (FHD): workspaces 1-5
+            // Monitor 1 (UHD): workspaces 6-10
+            const monitor1Workspaces = allWorkspaces.filter(ws => {
+              const num = parseInt(ws.name);
+              return num >= 1 && num <= 5;
+            });
+
+            const monitor2Workspaces = allWorkspaces.filter(ws => {
+              const num = parseInt(ws.name);
+              return num >= 6 && num <= 10;
+            });
+
+            // Return all workspaces for now - each monitor will show all
+            // This ensures workspaces appear on both monitors
+            return allWorkspaces;
+          }
+
+          return currentWorkspaces;
+        }
+
+        return (
+          <div className="bottom-app">
+            <div className="bottom-left">
+              {/* Windows Start Icon */}
+              <div className="bottom-windows">
+                <button className="btn-bottom-windows" onClick={() => output.glazewm?.runCommand('shell-exec explorer shell:AppsFolder')}>
+                  <i className="nf nf-md-microsoft_windows"></i>
+                </button>
+              </div>
+
+
+            </div>
+
+            <div className="bottom-center">
+              {/* Workspaces */}
+              <div className="bottom-workspaces">
+                {getWorkspacesForCurrentMonitor().map(workspace => {
+                  const workspaceApp = getWorkspaceApp(workspace.name);
+                  const appIcon = workspaceApp ? getAppIcon(workspaceApp.processName) : null;
+
+                  console.log(`Workspace ${workspace.name}: app=${workspaceApp?.processName}, icon=${appIcon}`);
+
+                  return (
+                    <button
+                      className={`bottom-workspace ${workspace.hasFocus ? 'focused' : ''} ${workspace.isDisplayed ? 'displayed' : ''}`}
+                      onClick={() =>
+                        output.glazewm.runCommand(
+                          `focus --workspace ${workspace.name}`,
+                        )
+                      }
+                      key={workspace.name}
+                      title={workspaceApp ? `${workspace.name}: ${workspaceApp.processName}` : workspace.name}
+                    >
+                      <span className="workspace-number">{workspace.displayName ?? workspace.name}</span>
+                      {appIcon && <i className={`workspace-app-icon ${appIcon}`}></i>}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="bottom-right">
+              {/* Microphone Status */}
+              <div className="microphone-section">
+                <i className="nf nf-md-microphone"></i>
+                <span>
+                  {output.audio && output.audio.defaultCaptureDevice ? 
+                    Math.round(output.audio.defaultCaptureDevice.volume) : '--'}
+                </span>
+              </div>
+
+              {/* Volume Control */}
+              <div className="bottom-audio-section">
+                <button className="btn-bottom-audio" onClick={() => {
+                  if (output.audio && output.audio.defaultPlaybackDevice) {
+                    output.audio.setVolume(output.audio.defaultPlaybackDevice.volume - 5);
+                  }
+                }}>
+                  <i className="nf nf-md-volume_minus"></i>
+                </button>
+
+                <div className="bottom-audio-volume">
+                  <i className="nf nf-md-volume_high"></i>
+                  <span>{output.audio && output.audio.defaultPlaybackDevice ? Math.round(output.audio.defaultPlaybackDevice.volume) : '--'}</span>
+                </div>
+
+                <button className="btn-bottom-audio" onClick={() => {
+                  if (output.audio && output.audio.defaultPlaybackDevice) {
+                    output.audio.setVolume(output.audio.defaultPlaybackDevice.volume + 5);
+                  }
+                }}>
+                  <i className="nf nf-md-volume_plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    </script>
+  </body>
+</html>

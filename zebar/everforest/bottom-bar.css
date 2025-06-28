@@ -1,0 +1,245 @@
+/* Bottom Bar Specific Styles */
+
+/* Override root styles for bottom bar */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bottom-app {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  height: 100%;
+  padding: 6px 8px;
+  background-color: var(--bg-green);
+  border-radius: 0;
+  margin: 0;
+}
+
+.bottom-left,
+.bottom-center,
+.bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.bottom-center {
+  justify-self: center;
+  overflow: hidden;
+}
+
+.bottom-right {
+  justify-content: end;
+}
+
+/* Bottom Windows Icon */
+.bottom-windows {
+  margin-right: 5px;
+}
+
+.btn-bottom-windows {
+  background-color: var(--bg0);
+  color: var(--blue);
+  border: none;
+  border-radius: 5px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 28px;
+  font-size: 16px;
+  line-height: 1;
+  font-family: "JetBrainsMono Nerd Font", "CaskaydiaCove Nerd Font", monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.btn-bottom-windows:hover {
+  background-color: var(--bg1);
+  color: var(--aqua);
+}
+
+.btn-bottom-windows i {
+  font-size: 16px;
+  line-height: 1;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* Bottom Workspaces */
+.bottom-workspaces {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.bottom-workspace {
+  background-color: var(--orange);
+  color: var(--black);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: all 0.3s ease;
+  min-width: 30px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bottom-workspace.displayed {
+  background-color: var(--grey0);
+  color: var(--black);
+}
+
+.bottom-workspace.focused {
+  background-color: var(--green);
+  color: var(--bg0);
+}
+
+.bottom-workspace:hover {
+  background-color: var(--yellow);
+  color: var(--bg0);
+}
+
+.workspace-number {
+  font-weight: bold;
+}
+
+.workspace-app-icon {
+  font-size: 12px;
+  opacity: 0.8;
+  font-family: "JetBrainsMono Nerd Font", "CaskaydiaCove Nerd Font", monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  display: inline-block;
+  line-height: 1;
+}
+
+/* Open Applications */
+.open-applications {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  overflow: hidden;
+  max-width: 600px;
+}
+
+.app-button {
+  background-color: var(--bg1);
+  color: var(--fg);
+  border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 60px;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-button:hover {
+  background-color: var(--bg2);
+}
+
+.app-button.focused {
+  background-color: var(--green);
+  color: var(--bg0);
+}
+
+.app-name {
+  font-size: 11px;
+}
+
+.no-apps {
+  color: var(--grey1);
+  font-size: 11px;
+}
+
+/* Microphone Section */
+.microphone-section {
+  background-color: var(--purple);
+  color: var(--black);
+  padding: 4px 8px;
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  box-sizing: border-box;
+}
+
+/* Bottom Audio Section */
+.bottom-audio-section {
+  background-color: var(--blue);
+  color: var(--black);
+  padding: 4px 8px;
+  border-radius: 0 5px 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  box-sizing: border-box;
+}
+
+.btn-bottom-audio {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-bottom-audio:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.bottom-audio-volume {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 4px;
+}
+
+/* Responsive adjustments for bottom bar */
+@media (max-width: 1200px) {
+  .bottom-app {
+    font-size: 12px;
+  }
+  
+  .open-applications {
+    max-width: 400px;
+  }
+  
+  .app-button {
+    min-width: 50px;
+    max-width: 80px;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 800px) {
+  .open-applications {
+    max-width: 200px;
+  }
+  
+  .app-button {
+    min-width: 40px;
+    max-width: 60px;
+  }
+}

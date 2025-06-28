@@ -11,7 +11,7 @@ general:
   toggle_workspace_on_refocus: false
   cursor_jump:
     # Whether to automatically move the cursor on the specified trigger.
-    enabled: true
+    enabled: false
     # Trigger for cursor jump:
 
     # - 'monitor_focus': Jump when focus changes between monitors.
@@ -26,7 +26,7 @@ gaps:
   outer_gap:
     top: "50px"
     right: "10px"
-    bottom: "10px"
+    bottom: "5px"
     left: "10px"
 window_effects:
   # Visual effects to apply to the focused window.
@@ -65,15 +65,28 @@ window_behavior:
 
       shown_on_top: false
 workspaces:
+  # Monitor 1 (FHD) - Workspaces 1-5
   - name: "1"
+    bind_to_monitor: 0
   - name: "2"
+    bind_to_monitor: 0
   - name: "3"
+    bind_to_monitor: 0
   - name: "4"
+    bind_to_monitor: 0
   - name: "5"
+    bind_to_monitor: 0
+  # Monitor 2 (UHD) - Workspaces 6-10
   - name: "6"
+    bind_to_monitor: 1
   - name: "7"
+    bind_to_monitor: 1
   - name: "8"
+    bind_to_monitor: 1
   - name: "9"
+    bind_to_monitor: 1
+  - name: "10"
+    bind_to_monitor: 1
 window_rules:
   - commands: ["ignore"]
     match:
@@ -120,6 +133,9 @@ keybindings:
     bindings: ["alt+k", "alt+up"]
   - commands: ["focus --direction down"]
     bindings: ["alt+j", "alt+down"]
+  - commands: ["wm-cycle-focus"]
+    # Cycle focus to the next window
+    bindings: ["alt+n"]
   - commands: ["move --direction left"]
     # Move focused window in a given direction.
 
@@ -226,6 +242,8 @@ keybindings:
     bindings: ["alt+8"]
   - commands: ["focus --workspace 9"]
     bindings: ["alt+9"]
+  - commands: ["focus --workspace 10"]
+    bindings: ["alt+0"]
   - commands: ["move-workspace --direction left"]
     # Move the focused window's parent workspace to a monitor in a given
 
@@ -257,3 +275,5 @@ keybindings:
     bindings: ["alt+shift+8"]
   - commands: ["move --workspace 9", "focus --workspace 9"]
     bindings: ["alt+shift+9"]
+  - commands: ["move --workspace 10", "focus --workspace 10"]
+    bindings: ["alt+shift+0"]

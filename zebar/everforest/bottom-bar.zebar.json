@@ -1,7 +1,7 @@
 {
   "$schema": "https://github.com/glzr-io/zebar/raw/v2.1.0/resources/widget-schema.json",
-  "htmlPath": "./everforest.html",
-  "zOrder": "normal",
+  "htmlPath": "./bottom-bar.html",
+  "zOrder": "top_most",
   "shownInTaskbar": false,
   "focused": false,
   "resizable": false,
@@ -16,17 +16,17 @@
   "presets": [
     {
       "name": "default",
-      "anchor": "top_left",
+      "anchor": "bottom_left",
       "offsetX": "0px",
-      "offsetY": "1px",
+      "offsetY": "0px",
       "width": "100%",
       "height": "46px",
       "monitorSelection": {
         "type": "all"
       },
       "dockToEdge": {
-        "enabled": false,
-        "edge": null,
+        "enabled": true,
+        "edge": "bottom",
         "windowMargin": "0px"
       }
     }

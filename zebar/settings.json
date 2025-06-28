@@ -3,7 +3,11 @@
   "startupConfigs": [
     {
       "path": "everforest/everforest.zebar.json",
-      "preset": "everforest"
+      "preset": "default"
+    },
+    {
+      "path": "everforest/bottom-bar.zebar.json",
+      "preset": "default"
     }
   ]
 }
