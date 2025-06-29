@@ -36,7 +36,7 @@
         glazewm: { type: 'glazewm' },
         cpu: { type: 'cpu', refreshInterval: '2000' },
         date: { type: 'date', formatting: 'EEE dd MMM HH:mm:ss' },
-        battery: { type: 'battery', refreshInterval: '20000'},
+
         memory: { type: 'memory', refreshInterval: '2000'},
         weather: { type: 'weather' },
         host: { type: 'host', refreshInterval: '60000'},
@@ -104,18 +104,7 @@
           }
         }
 
-        // Get icon to show for how much of the battery is charged.
-        function getBatteryIcon(batteryOutput) {
-          if (batteryOutput.chargePercent > 90)
-            return <i className="nf nf-fa-battery_4 battery-full"></i>;
-          if (batteryOutput.chargePercent > 70)
-            return <i className="nf nf-fa-battery_3 battery-good"></i>;
-          if (batteryOutput.chargePercent > 40)
-            return <i className="nf nf-fa-battery_2 battery-medium"></i>;
-          if (batteryOutput.chargePercent > 20)
-            return <i className="nf nf-fa-battery_1 battery-low"></i>;
-          return <i className="nf nf-fa-battery_0 battery-critical"></i>;
-        }
+
 
         // Get icon to show for temperature status.
         function getTemperatureIcon() {
@@ -183,20 +172,6 @@
             </div>
 
             <div className="right">
-              {/* Battery */}
-              <div className="battery-section">
-                {/* Show icon for whether battery is charging. */}
-                {output.battery && output.battery.isCharging && (
-                  <i className="nf nf-md-power_plug charging-icon"></i>
-                )}
-                {output.battery ? getBatteryIcon(output.battery) : <i className="nf nf-fa-battery_0"></i>}
-                <span className={`battery-percent ${
-                  output.battery && output.battery.chargePercent < 20 ? 'battery-critical' :
-                  output.battery && output.battery.chargePercent > 90 ? 'battery-full' : 'battery-normal'
-                }`}>
-                  {output.battery ? Math.round(output.battery.chargePercent) : '--'}%
-                </span>
-              </div>
 
 
             </div>

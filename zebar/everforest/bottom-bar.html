@@ -34,7 +34,8 @@
 
       const providers = zebar.createProviderGroup({
         glazewm: { type: 'glazewm' },
-        audio: { type: 'audio' }
+        audio: { type: 'audio' },
+        battery: { type: 'battery', refreshInterval: '20000'}
       });
 
       createRoot(document.getElementById('root')).render(<App />);
@@ -107,6 +108,19 @@
 
           console.log(`getAppIcon: No specific icon found for "${processName}", using default`);
           return 'nf-md-application'; // Default application icon
+        }
+
+        // Get icon to show for how much of the battery is charged.
+        function getBatteryIcon(batteryOutput) {
+          if (batteryOutput.chargePercent > 90)
+            return <i className="nf nf-fa-battery_4 battery-full"></i>;
+          if (batteryOutput.chargePercent > 70)
+            return <i className="nf nf-fa-battery_3 battery-good"></i>;
+          if (batteryOutput.chargePercent > 40)
+            return <i className="nf nf-fa-battery_2 battery-medium"></i>;
+          if (batteryOutput.chargePercent > 20)
+            return <i className="nf nf-fa-battery_1 battery-low"></i>;
+          return <i className="nf nf-fa-battery_0 battery-critical"></i>;
         }
 
         // Get primary application for a workspace
@@ -218,6 +232,21 @@
             </div>
 
             <div className="bottom-right">
+              {/* Battery */}
+              <div className="bottom-battery-section">
+                {/* Show icon for whether battery is charging. */}
+                {output.battery && output.battery.isCharging && (
+                  <i className="nf nf-md-power_plug charging-icon"></i>
+                )}
+                {output.battery ? getBatteryIcon(output.battery) : <i className="nf nf-fa-battery_0"></i>}
+                <span className={`battery-percent ${
+                  output.battery && output.battery.chargePercent < 20 ? 'battery-critical' :
+                  output.battery && output.battery.chargePercent > 90 ? 'battery-full' : 'battery-normal'
+                }`}>
+                  {output.battery ? Math.round(output.battery.chargePercent) : '--'}%
+                </span>
+              </div>
+
               {/* Microphone Status */}
               <div className="microphone-section">
                 <i className="nf nf-md-microphone"></i>

@@ -3,21 +3,18 @@ general:
   # another application). Here we are running a batch script to start Zebar.
   startup_commands: ["shell-exec zebar"]
   # Whether to automatically focus windows underneath the cursor.
-
-  focus_follows_cursor: false
+  focus_follows_cursor: true
   # Whether to switch back and forth between the previously focused
-
   # workspace when focusing the current workspace.
   toggle_workspace_on_refocus: false
   cursor_jump:
     # Whether to automatically move the cursor on the specified trigger.
-    enabled: false
+    enabled: true
     # Trigger for cursor jump:
 
     # - 'monitor_focus': Jump when focus changes between monitors.
     # - 'window_focus': Jump when focus changes between windows.
-    # trigger: "monitor_focus"
-    trigger: "window_focus"
+    trigger: "monitor_focus"
 gaps:
   # Gap between adjacent windows.
   inner_gap: "10px"
@@ -133,9 +130,12 @@ keybindings:
     bindings: ["alt+k", "alt+up"]
   - commands: ["focus --direction down"]
     bindings: ["alt+j", "alt+down"]
-  - commands: ["wm-cycle-focus"]
-    # Cycle focus to the next window
-    bindings: ["alt+n"]
+  - commands: ["focus --next-workspace"]
+    # Cycle to next workspace in sequence (includes empty workspaces)
+    bindings: ["alt+tab"]
+  - commands: ["focus --next-workspace"]
+    # Cycle to next workspace in sequence (use Alt+S/Alt+A for more control)
+    bindings: ["alt+shift+tab"]
   - commands: ["move --direction left"]
     # Move focused window in a given direction.
 
@@ -200,12 +200,12 @@ keybindings:
     bindings: ["alt+shift+e"]
   - commands: ["wm-reload-config"]
     # Re-evaluate configuration file.
-
     bindings: ["alt+shift+r"]
+
   - commands: ["wm-redraw"]
     # Redraw all windows.
-
     bindings: ["alt+shift+w"]
+
   - commands: ["shell-exec wezterm-gui"]
     # Launch CMD terminal. Alternatively, use `shell-exec wt` or
 
@@ -219,35 +219,30 @@ keybindings:
   - commands: ["focus --prev-workspace"]
     bindings: ["alt+a"]
   - commands: ["focus --recent-workspace"]
-    # Focus the workspace that last had focus.
-
     bindings: ["alt+d"]
+
   - commands: ["focus --workspace 1"]
-    # Change focus to a workspace defined in `workspaces` config.
-
-    bindings: ["alt+1"]
+    bindings: ["lwin+1"]
   - commands: ["focus --workspace 2"]
-    bindings: ["alt+2"]
+    bindings: ["lwin+2"]
   - commands: ["focus --workspace 3"]
-    bindings: ["alt+3"]
+    bindings: ["lwin+3"]
   - commands: ["focus --workspace 4"]
-    bindings: ["alt+4"]
+    bindings: ["lwin+4"]
   - commands: ["focus --workspace 5"]
-    bindings: ["alt+5"]
+    bindings: ["lwin+5"]
   - commands: ["focus --workspace 6"]
-    bindings: ["alt+6"]
+    bindings: ["lwin+6"]
   - commands: ["focus --workspace 7"]
-    bindings: ["alt+7"]
+    bindings: ["lwin+7"]
   - commands: ["focus --workspace 8"]
-    bindings: ["alt+8"]
+    bindings: ["lwin+8"]
   - commands: ["focus --workspace 9"]
-    bindings: ["alt+9"]
+    bindings: ["lwin+9"]
   - commands: ["focus --workspace 10"]
-    bindings: ["alt+0"]
-  - commands: ["move-workspace --direction left"]
-    # Move the focused window's parent workspace to a monitor in a given
+    bindings: ["lwin+0"]
 
-    # direction.
+  - commands: ["move-workspace --direction left"]
     bindings: ["alt+shift+a"]
   - commands: ["move-workspace --direction right"]
     bindings: ["alt+shift+f"]
@@ -255,25 +250,24 @@ keybindings:
     bindings: ["alt+shift+d"]
   - commands: ["move-workspace --direction down"]
     bindings: ["alt+shift+s"]
-  - commands: ["move --workspace 1", "focus --workspace 1"]
-    # Move focused window to a workspace defined in `workspaces` config.
 
-    bindings: ["alt+shift+1"]
+  - commands: ["move --workspace 1", "focus --workspace 1"]
+    bindings: ["lwin+shift+1"]
   - commands: ["move --workspace 2", "focus --workspace 2"]
-    bindings: ["alt+shift+2"]
+    bindings: ["lwin+shift+2"]
   - commands: ["move --workspace 3", "focus --workspace 3"]
-    bindings: ["alt+shift+3"]
+    bindings: ["lwin+shift+3"]
   - commands: ["move --workspace 4", "focus --workspace 4"]
-    bindings: ["alt+shift+4"]
+    bindings: ["lwin+shift+4"]
   - commands: ["move --workspace 5", "focus --workspace 5"]
-    bindings: ["alt+shift+5"]
+    bindings: ["lwin+shift+5"]
   - commands: ["move --workspace 6", "focus --workspace 6"]
-    bindings: ["alt+shift+6"]
+    bindings: ["lwin+shift+6"]
   - commands: ["move --workspace 7", "focus --workspace 7"]
-    bindings: ["alt+shift+7"]
+    bindings: ["lwin+shift+7"]
   - commands: ["move --workspace 8", "focus --workspace 8"]
-    bindings: ["alt+shift+8"]
+    bindings: ["lwin+shift+8"]
   - commands: ["move --workspace 9", "focus --workspace 9"]
-    bindings: ["alt+shift+9"]
+    bindings: ["lwin+shift+9"]
   - commands: ["move --workspace 10", "focus --workspace 10"]
-    bindings: ["alt+shift+0"]
+    bindings: ["lwin+shift+0"]

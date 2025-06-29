@@ -169,12 +169,44 @@ html, body, #root {
   font-size: 11px;
 }
 
+/* Bottom Battery Section */
+.bottom-battery-section {
+  background-color: var(--aqua);
+  color: var(--black);
+  padding: 4px 8px;
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  box-sizing: border-box;
+}
+
+.charging-icon {
+  position: relative;
+  left: 2px;
+  top: 2px;
+  color: var(--green);
+}
+
+.battery-critical {
+  color: var(--red) !important;
+}
+
+.battery-full {
+  color: var(--green) !important;
+}
+
+.battery-normal {
+  color: var(--black);
+}
+
 /* Microphone Section */
 .microphone-section {
   background-color: var(--purple);
   color: var(--black);
   padding: 4px 8px;
-  border-radius: 5px 0 0 5px;
+  border-radius: 0;
   display: flex;
   align-items: center;
   gap: 4px;
