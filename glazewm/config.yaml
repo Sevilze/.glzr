@@ -130,15 +130,12 @@ keybindings:
     bindings: ["alt+k", "alt+up"]
   - commands: ["focus --direction down"]
     bindings: ["alt+j", "alt+down"]
-  - commands: ["focus --next-workspace"]
-    # Cycle to next workspace in sequence (includes empty workspaces)
+
+  - commands: ["focus --next-active-workspace"]
     bindings: ["alt+tab"]
-  - commands: ["focus --next-workspace"]
-    # Cycle to next workspace in sequence (use Alt+S/Alt+A for more control)
-    bindings: ["alt+shift+tab"]
+
   - commands: ["move --direction left"]
     # Move focused window in a given direction.
-
     bindings: ["alt+shift+h", "alt+shift+left"]
   - commands: ["move --direction right"]
     bindings: ["alt+shift+l", "alt+shift+right"]
