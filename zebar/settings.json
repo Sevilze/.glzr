@@ -1,12 +1,14 @@
 {
-  "$schema": "https://github.com/glzr-io/zebar/raw/v2.4.0/resources/settings-schema.json",
+  "$schema": "https://github.com/glzr-io/zebar/raw/v3.1.1/resources/settings-schema.json",
   "startupConfigs": [
     {
-      "path": "everforest/everforest.zebar.json",
+      "pack": "everforest",
+      "widget": "everforest",
       "preset": "default"
     },
     {
-      "path": "everforest/bottom-bar.zebar.json",
+      "pack": "everforest",
+      "widget": "bottom-bar",
       "preset": "default"
     }
   ]
