@@ -10,7 +10,7 @@
     {
       "name": "bottom-bar",
       "htmlPath": "./bottom-bar.html",
-      "zOrder": "top_most",
+      "zOrder": "normal",
       "shownInTaskbar": false,
       "focused": false,
       "resizable": false,
